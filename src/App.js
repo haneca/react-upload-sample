@@ -4,19 +4,40 @@ import axios from 'axios';
 const server = 'http://localhost:8000/api/sample';
 
 class App extends Component {
-  // この関数を編集
+  constructor() {
+    super();
+    this.state = {
+      status: false,
+      result: '',
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick(event) {
     axios.get(server)
       .then((res) => {
-        console.log(res);
+        this.setState({
+          status: true,
+          result: res.data
+        });
+        console.log(this.state);
       })
-      .catch(console.error);
+      .catch((e) => {
+        console.error(e);
+        this.setState({
+          status: false,
+          result: e,
+        });
+      });
   }
 
   render() {
+    const result = (this.state.status) ? (<div>{this.state.result}</div>) : (<div>Not Yet</div>);
     return (
       <div>
         <button onClick={this.handleClick}>Get Data</button>
+        {result}
       </div>
     );
   }
