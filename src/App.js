@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 
 const server = 'http://localhost:8000/api/sample';
@@ -43,4 +44,5 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect((state) => ({
+}))(App);
